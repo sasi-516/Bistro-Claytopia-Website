@@ -2,127 +2,235 @@ import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Menu, X } from "lucide-react";
 
+interface NavLink {
+  name: string;
+  href: string;
+  sectionId: string;
+}
+
+const navLinks: NavLink[] = [
+  { name: "Experiences", href: "#experiences", sectionId: "experiences" },
+  { name: "How It Works", href: "#process", sectionId: "process" },
+  { name: "Menu", href: "#menu", sectionId: "menu" },
+  { name: "Events", href: "#events", sectionId: "events" },
+  { name: "Gallery", href: "#gallery", sectionId: "gallery" },
+  { name: "FAQ", href: "#faq", sectionId: "faq" },
+];
+
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docHeight > 0 ? (scrollY / docHeight) * 100 : 0);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Experiences", href: "#experiences" },
-    { name: "How It Works", href: "#process" },
-    { name: "Menu", href: "#menu" },
-    { name: "Events", href: "#events" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "FAQ", href: "#faq" },
-  ];
+  useEffect(() => {
+    const sectionIds = navLinks.map((l) => l.sectionId);
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) setActiveSection(id);
+          });
+        },
+        { threshold: 0.35 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    const id = href.replace("#", "");
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", href);
     }
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm py-4"
-          : "bg-transparent py-6"
-      }`}
-    >
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className={`font-serif text-2xl md:text-3xl font-bold tracking-tight ${isScrolled ? "text-primary" : "text-white drop-shadow-md"}`}>
-              Claytopia
-            </span>
-          </Link>
+    <>
+      {/* Scroll progress bar */}
+      <div
+        className="fixed top-0 left-0 z-[60] h-[3px] bg-primary transition-all duration-100"
+        style={{ width: `${scrollProgress}%` }}
+        role="progressbar"
+        aria-valuenow={Math.round(scrollProgress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      />
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            <ul className="flex gap-6">
-              {navLinks.map((link) => (
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-background/95 backdrop-blur-md shadow-sm py-3"
+            : "bg-transparent py-5"
+        }`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between">
+            <Link
+              href="/"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="flex items-center gap-2 group"
+              aria-label="Bistro Claytopia – Home"
+              data-testid="link-home"
+            >
+              <span
+                className={`font-serif text-xl md:text-2xl font-bold tracking-tight transition-colors ${
+                  isScrolled ? "text-primary" : "text-white drop-shadow-md"
+                }`}
+              >
+                Bistro{" "}
+                <span className={isScrolled ? "text-foreground" : "text-white/90"}>
+                  Claytopia
+                </span>
+              </span>
+            </Link>
+
+            {/* Desktop Nav */}
+            <div className="hidden lg:flex items-center gap-6">
+              <ul className="flex gap-1" role="list">
+                {navLinks.map((link) => {
+                  const isActive = activeSection === link.sectionId;
+                  return (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                        data-testid={`link-nav-${link.sectionId}`}
+                        className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                          isActive
+                            ? isScrolled
+                              ? "text-primary"
+                              : "text-white"
+                            : isScrolled
+                            ? "text-foreground/70 hover:text-foreground"
+                            : "text-white/80 hover:text-white"
+                        }`}
+                      >
+                        {link.name}
+                        {isActive && (
+                          <span
+                            className={`absolute bottom-0.5 left-3 right-3 h-0.5 rounded-full ${
+                              isScrolled ? "bg-primary" : "bg-white"
+                            }`}
+                          />
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+              <a
+                href="#book"
+                onClick={(e) => handleNavClick(e, "#book")}
+                data-testid="button-book-nav"
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105 ${
+                  isScrolled
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+                    : "bg-white text-primary hover:bg-white/90 shadow-lg"
+                }`}
+              >
+                Book a Table
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              className={`lg:hidden p-2 -mr-2 rounded-lg transition-colors ${
+                isScrolled
+                  ? "text-foreground hover:bg-muted"
+                  : "text-white hover:bg-white/10"
+              }`}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMobileMenuOpen}
+              data-testid="button-mobile-menu"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Nav */}
+        <div
+          className={`fixed inset-0 bg-background/98 backdrop-blur-xl z-40 transition-all duration-300 ease-in-out lg:hidden flex flex-col ${
+            isMobileMenuOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+          aria-hidden={!isMobileMenuOpen}
+        >
+          <div className="flex items-center justify-between px-6 py-5 border-b border-border/50">
+            <span className="font-serif text-xl font-bold text-primary">Bistro Claytopia</span>
+            <button
+              className="p-2 text-foreground hover:bg-muted rounded-lg"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close navigation menu"
+              data-testid="button-mobile-close"
+            >
+              <X size={24} />
+            </button>
+          </div>
+          <ul className="flex flex-col flex-1 px-6 py-8 gap-2" role="list">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.sectionId;
+              return (
                 <li key={link.name}>
                   <a
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
-                    className={`text-sm font-medium hover:text-primary transition-colors ${isScrolled ? "text-foreground/80" : "text-white/90 hover:text-white drop-shadow-md"}`}
+                    data-testid={`link-mobile-${link.sectionId}`}
+                    className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-xl font-serif transition-all ${
+                      isActive
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground hover:bg-muted"
+                    }`}
                   >
                     {link.name}
+                    {isActive && (
+                      <span className="w-2 h-2 rounded-full bg-primary" />
+                    )}
                   </a>
                 </li>
-              ))}
-            </ul>
-            <a
-              href="#book"
-              onClick={(e) => handleNavClick(e, "#book")}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-                isScrolled 
-                ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-                : "bg-white text-primary hover:bg-white/90 shadow-lg"
-              }`}
-            >
-              Book a Table
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className={`lg:hidden p-2 -mr-2 ${isScrolled ? "text-foreground" : "text-white drop-shadow-md"}`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Nav */}
-      <div
-        className={`fixed inset-0 bg-background z-40 transition-transform duration-300 ease-in-out ${
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        } lg:hidden pt-24 px-6`}
-        style={{ top: "0" }}
-      >
-        <button
-          className="absolute top-6 right-4 p-2 text-foreground"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          <X size={24} />
-        </button>
-        <ul className="flex flex-col gap-6 text-center mt-8">
-          {navLinks.map((link) => (
-            <li key={link.name}>
+              );
+            })}
+            <li className="mt-auto pt-6">
               <a
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-2xl font-serif text-foreground hover:text-primary transition-colors block"
+                href="#book"
+                onClick={(e) => handleNavClick(e, "#book")}
+                data-testid="button-book-mobile"
+                className="block w-full py-4 px-8 bg-primary text-primary-foreground text-lg font-semibold rounded-2xl hover:bg-primary/90 transition-colors text-center shadow-lg"
               >
-                {link.name}
+                Book a Table
               </a>
             </li>
-          ))}
-          <li className="mt-8">
-            <a
-              href="#book"
-              onClick={(e) => handleNavClick(e, "#book")}
-              className="inline-block w-full py-4 px-8 bg-primary text-primary-foreground text-lg font-medium rounded-full hover:bg-primary/90 transition-colors"
-            >
-              Book a Table
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 }
