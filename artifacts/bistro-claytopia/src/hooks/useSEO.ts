@@ -8,22 +8,16 @@ interface SectionMeta {
 
 const SECTIONS: SectionMeta[] = [
   {
-    id: "hero",
+    id: "hero-section",
     title: "Bistro Claytopia | Paint-Your-Own Pottery Café in Koramangala, Bangalore",
     description:
       "Bangalore's premier paint-your-own pottery café in Koramangala. Eat great food, paint ceramics, and leave with a handmade souvenir. Open 11 AM–11 PM.",
   },
   {
     id: "experiences",
-    title: "Our Experiences | Bistro Claytopia – Pottery & Dining in Bangalore",
+    title: "Our Experiences | Bistro Claytopia – Pottery, Wheel & Knitting in Bangalore",
     description:
-      "Explore pottery painting, pottery wheel sessions, and café dining at Bistro Claytopia in Koramangala, Bangalore. Creative experiences for all ages.",
-  },
-  {
-    id: "process",
-    title: "How Pottery Works | Bistro Claytopia Bangalore",
-    description:
-      "Learn how our pottery process works at Bistro Claytopia — choose a piece, paint it, we glaze and fire it, and you collect your finished ceramic in 2–3 weeks.",
+      "Explore pottery painting, pottery wheel sessions, café dining, and knitting studio at Bistro Claytopia in Koramangala, Bangalore. Creative experiences for all ages.",
   },
   {
     id: "menu",
@@ -38,6 +32,12 @@ const SECTIONS: SectionMeta[] = [
       "Birthday parties, couple dates, family workshops, and corporate team-building events at Bistro Claytopia in Koramangala, Bangalore.",
   },
   {
+    id: "whats-on",
+    title: "What's On | Bistro Claytopia – Live Events, Workshops & Fests",
+    description:
+      "Upcoming live music nights, pottery workshops, seasonal fests, and special events at Bistro Claytopia in Koramangala, Bangalore. Book your spot today.",
+  },
+  {
     id: "gallery",
     title: "Gallery | Bistro Claytopia – Customer Creations & Studio",
     description:
@@ -47,7 +47,7 @@ const SECTIONS: SectionMeta[] = [
     id: "book",
     title: "Book a Table | Bistro Claytopia – Reserve Your Pottery Experience",
     description:
-      "Book a table at Bistro Claytopia in Koramangala, Bangalore. Reserve your pottery painting or wheel session — weekends fill up fast!",
+      "Book a table at Bistro Claytopia in Koramangala, Bangalore. Reserve your pottery painting, wheel session, knitting, or café table — weekends fill up fast!",
   },
   {
     id: "faq",
@@ -58,7 +58,9 @@ const SECTIONS: SectionMeta[] = [
 ];
 
 function setMetaContent(name: string, content: string, attr = "name") {
-  let el = document.querySelector(`meta[${attr}="${name}"]`) as HTMLMetaElement | null;
+  let el = document.querySelector(
+    `meta[${attr}="${name}"]`
+  ) as HTMLMetaElement | null;
   if (!el) {
     el = document.createElement("meta");
     el.setAttribute(attr, name);
@@ -72,8 +74,7 @@ export function useSEO() {
     const observers: IntersectionObserver[] = [];
 
     SECTIONS.forEach(({ id, title, description }) => {
-      const sectionId = id === "hero" ? "hero-section" : id;
-      const el = document.getElementById(sectionId);
+      const el = document.getElementById(id);
       if (!el) return;
 
       const observer = new IntersectionObserver(
@@ -87,9 +88,9 @@ export function useSEO() {
               setMetaContent("twitter:title", title);
               setMetaContent("twitter:description", description);
 
-              const hash = id === "hero" ? "" : `#${id}`;
-              const newUrl = `${window.location.pathname}${hash}`;
-              window.history.replaceState(null, "", newUrl);
+              const rawId = id === "hero-section" ? "" : id;
+              const hash = rawId ? `#${rawId}` : "";
+              window.history.replaceState(null, "", `${window.location.pathname}${hash}`);
             }
           });
         },

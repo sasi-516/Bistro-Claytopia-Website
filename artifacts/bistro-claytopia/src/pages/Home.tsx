@@ -4,9 +4,9 @@ import { ArrowUp } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Experiences } from "@/components/Experiences";
-import { Process } from "@/components/Process";
 import { Menu } from "@/components/Menu";
 import { Events } from "@/components/Events";
+import { WhatsOn } from "@/components/WhatsOn";
 import { Gallery } from "@/components/Gallery";
 import { Book } from "@/components/Book";
 import { FAQ } from "@/components/FAQ";
@@ -16,6 +16,7 @@ import { useSEO } from "@/hooks/useSEO";
 export default function Home() {
   useSEO();
 
+  const [bookingExperience, setBookingExperience] = useState("");
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
@@ -29,22 +30,32 @@ export default function Home() {
     window.history.pushState(null, "", window.location.pathname);
   };
 
+  const handleBookExperience = (value: string) => {
+    setBookingExperience(value);
+    setTimeout(() => {
+      document.getElementById("book")?.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", "#book");
+    }, 80);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
         <Hero />
-        <Experiences />
-        <Process />
+        <Experiences onBookExperience={handleBookExperience} />
         <Menu />
         <Events />
+        <WhatsOn />
         <Gallery />
-        <Book />
+        <Book
+          preselectedExperience={bookingExperience}
+          onExperienceConsumed={() => setBookingExperience("")}
+        />
         <FAQ />
       </main>
       <Footer />
 
-      {/* Back to top */}
       <AnimatePresence>
         {showBackToTop && (
           <motion.button

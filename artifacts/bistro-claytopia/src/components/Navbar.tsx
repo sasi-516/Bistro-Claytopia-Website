@@ -10,9 +10,9 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { name: "Experiences", href: "#experiences", sectionId: "experiences" },
-  { name: "How It Works", href: "#process", sectionId: "process" },
   { name: "Menu", href: "#menu", sectionId: "menu" },
   { name: "Events", href: "#events", sectionId: "events" },
+  { name: "What's On", href: "#whats-on", sectionId: "whats-on" },
   { name: "Gallery", href: "#gallery", sectionId: "gallery" },
   { name: "FAQ", href: "#faq", sectionId: "faq" },
 ];
@@ -27,7 +27,6 @@ export function Navbar() {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 20);
-
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(docHeight > 0 ? (scrollY / docHeight) * 100 : 0);
     };
@@ -38,7 +37,6 @@ export function Navbar() {
   useEffect(() => {
     const sectionIds = navLinks.map((l) => l.sectionId);
     const observers: IntersectionObserver[] = [];
-
     sectionIds.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -53,7 +51,6 @@ export function Navbar() {
       observer.observe(el);
       observers.push(observer);
     });
-
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
@@ -72,7 +69,7 @@ export function Navbar() {
     <>
       {/* Scroll progress bar */}
       <div
-        className="fixed top-0 left-0 z-[60] h-[3px] bg-primary transition-all duration-100"
+        className="fixed top-0 left-0 z-[60] h-[3px] bg-primary transition-all duration-75"
         style={{ width: `${scrollProgress}%` }}
         role="progressbar"
         aria-valuenow={Math.round(scrollProgress)}
@@ -83,7 +80,7 @@ export function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-background/95 backdrop-blur-md shadow-sm py-3"
+            ? "bg-background/96 backdrop-blur-md shadow-sm py-3"
             : "bg-transparent py-5"
         }`}
         role="navigation"
@@ -94,9 +91,9 @@ export function Navbar() {
             <Link
               href="/"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center gap-2 group"
               aria-label="Bistro Claytopia – Home"
               data-testid="link-home"
+              className="flex items-center"
             >
               <span
                 className={`font-serif text-xl md:text-2xl font-bold tracking-tight transition-colors ${
@@ -111,8 +108,8 @@ export function Navbar() {
             </Link>
 
             {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-6">
-              <ul className="flex gap-1" role="list">
+            <div className="hidden lg:flex items-center gap-5">
+              <ul className="flex gap-0.5" role="list">
                 {navLinks.map((link) => {
                   const isActive = activeSection === link.sectionId;
                   return (
@@ -195,7 +192,7 @@ export function Navbar() {
               <X size={24} />
             </button>
           </div>
-          <ul className="flex flex-col flex-1 px-6 py-8 gap-2" role="list">
+          <ul className="flex flex-col flex-1 px-6 py-6 gap-1 overflow-y-auto" role="list">
             {navLinks.map((link) => {
               const isActive = activeSection === link.sectionId;
               return (
@@ -204,7 +201,7 @@ export function Navbar() {
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href)}
                     data-testid={`link-mobile-${link.sectionId}`}
-                    className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-xl font-serif transition-all ${
+                    className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${
                       isActive
                         ? "bg-primary/10 text-primary"
                         : "text-foreground hover:bg-muted"
