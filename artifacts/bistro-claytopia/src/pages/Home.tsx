@@ -8,6 +8,7 @@ import { Menu } from "@/components/Menu";
 import { Events } from "@/components/Events";
 import { WhatsOn } from "@/components/WhatsOn";
 import { Gallery } from "@/components/Gallery";
+import { Reviews } from "@/components/Reviews";
 import { Book } from "@/components/Book";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
@@ -48,6 +49,7 @@ export default function Home() {
         <Events />
         <WhatsOn />
         <Gallery />
+        <Reviews />
         <Book
           preselectedExperience={bookingExperience}
           onExperienceConsumed={() => setBookingExperience("")}
