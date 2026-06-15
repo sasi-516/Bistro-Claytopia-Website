@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "wDmohP1kYtG94bYojRjJk"
+uri = "file://artifacts/bistro-claytopia/public/images/hero.png"
+type = "image"
+title = "Rustic pottery cafe hero"
+
+[[generated]]
+id = "XxINHDm7nhaD-gV4ZWCFQ"
+uri = "file://artifacts/bistro-claytopia/public/images/painting.png"
+type = "image"
+title = "Hands painting pottery"
+
+[[generated]]
+id = "dHE3KgR8h-F1R0SMtCqPL"
+uri = "file://artifacts/bistro-claytopia/public/images/wheel.png"
+type = "image"
+title = "Pottery wheel spinning"
+
+[[generated]]
+id = "LZfKISRV9TYxDQ2kqBqAi"
+uri = "file://artifacts/bistro-claytopia/public/images/food.png"
+type = "image"
+title = "Cafe food and coffee"
+
+[[generated]]
+id = "VMj8vfwkhXi277hDJoW_q"
+uri = "file://artifacts/bistro-claytopia/public/images/gallery-1.png"
+type = "image"
+title = "Glazed ceramic mug"
+
+[[generated]]
+id = "DsuhH-JTmZN6Fgo55mSzQ"
+uri = "file://artifacts/bistro-claytopia/public/images/gallery-2.png"
+type = "image"
+title = "Friends painting together"
+
+[[generated]]
+id = "40-TCCSEO5xME-iKGJWAk"
+uri = "file://artifacts/bistro-claytopia/public/images/gallery-3.png"
+type = "image"
+title = "Shelf of pottery"
+
+[[generated]]
+id = "XAxWz1aq6td8KLDrRf7p1"
+uri = "file://artifacts/bistro-claytopia/public/images/gallery-4.png"
+type = "image"
+title = "Couple pottery date"
