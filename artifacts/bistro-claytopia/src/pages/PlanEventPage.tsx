@@ -108,8 +108,14 @@ function Slide({ children, stepKey }: { children: React.ReactNode; stepKey: numb
 
 export default function PlanEventPage() {
   const { toast } = useToast();
-  const [step, setStep] = useState(1);
-  const [eventType, setEventType] = useState("");
+
+  const preselectedType =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("type") ?? ""
+      : "";
+
+  const [step, setStep] = useState(preselectedType ? 1 : 1);
+  const [eventType, setEventType] = useState(preselectedType);
   const [actCounts, setActCounts] = useState<ActivityCount>({});
   const [addonCounts, setAddonCounts] = useState<AddonCount>({});
   const [date, setDate] = useState("");
@@ -158,23 +164,43 @@ export default function PlanEventPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Page header */}
-      <section className="relative pt-28 pb-8 md:pt-36 md:pb-10 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-64 bg-primary/6 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/6 rounded-full blur-3xl" />
+      {/* Hero header */}
+      <section className="relative h-[46vh] min-h-[340px] flex items-end overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/gallery-2.png')" }}
+          role="img"
+          aria-label="Guests enjoying a group pottery event at Bistro Claytopia"
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25" />
         </div>
-        <div className="container mx-auto px-4 md:px-6 relative z-10">
-          <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8" data-testid="link-plan-back">
-            <ArrowLeft size={15} /> Back to home
-          </Link>
-          <div className="text-center max-w-xl mx-auto">
-            <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3">Private & Group Events</p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-foreground mb-4">Plan Your Event</h1>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Build your perfect Claytopia experience — choose activities, add-ons, and we'll handle the rest.
+        <div className="relative z-10 container mx-auto px-4 md:px-6 pb-10 md:pb-14 w-full">
+          <nav aria-label="Breadcrumb" className="mb-5">
+            <ol className="flex items-center gap-2 text-white/60 text-sm">
+              <li>
+                <Link href="/" className="hover:text-white transition-colors" data-testid="link-plan-back">
+                  Home
+                </Link>
+              </li>
+              <li><ChevronRight size={14} /></li>
+              <li className="text-white font-medium">Plan an Event</li>
+            </ol>
+          </nav>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-primary text-xs uppercase tracking-[0.2em] font-semibold mb-2">
+              Private & Group Events
             </p>
-          </div>
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white drop-shadow-lg mb-3">
+              Plan Your Event
+            </h1>
+            <p className="text-white/75 text-lg max-w-xl leading-relaxed">
+              Build your perfect Claytopia experience — choose activities, add-ons, and we'll handle every detail.
+            </p>
+          </motion.div>
         </div>
       </section>
 

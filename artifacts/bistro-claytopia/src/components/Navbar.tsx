@@ -77,7 +77,8 @@ export function Navbar() {
   const isStorePage = location.startsWith("/store");
   const isExpPage = location.startsWith("/experiences/");
   const isMenuPage = location.startsWith("/menu");
-  const onSubPage = isStorePage || isExpPage || isMenuPage;
+  const isPlanEventPage = location.startsWith("/plan-event");
+  const onSubPage = isStorePage || isExpPage || isMenuPage || isPlanEventPage;
 
   return (
     <>
