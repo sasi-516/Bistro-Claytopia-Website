@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { Link } from "wouter";
+import { ArrowDown, CalendarHeart } from "lucide-react";
 
 function scrollTo(href: string) {
   const id = href.replace("#", "");
@@ -60,14 +61,14 @@ export function Hero() {
             >
               Book a Table
             </a>
-            <a
-              href="#experiences"
-              onClick={(e) => { e.preventDefault(); scrollTo("#experiences"); }}
-              data-testid="button-hero-explore"
-              className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/25 rounded-full font-semibold text-base md:text-lg hover:bg-white/20 transition-all"
+            <Link
+              href="/plan-event"
+              data-testid="button-hero-plan-event"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/30 rounded-full font-semibold text-base md:text-lg hover:bg-white/20 transition-all"
             >
-              Explore Experiences
-            </a>
+              <CalendarHeart size={18} />
+              Plan an Event
+            </Link>
           </div>
 
           {/* Trust badges */}

@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Palette, Disc, Coffee, Scissors, ArrowRight } from "lucide-react";
+import { Palette, Disc, Coffee, Scissors, CalendarCheck } from "lucide-react";
 import { experiences } from "@/data/experiences";
 
 const iconMap: Record<string, React.ReactNode> = {
-  paint: <Palette className="w-6 h-6" />,
-  wheel: <Disc className="w-6 h-6" />,
-  dine: <Coffee className="w-6 h-6" />,
-  knitting: <Scissors className="w-6 h-6" />,
+  paint: <Palette className="w-5 h-5" />,
+  wheel: <Disc className="w-5 h-5" />,
+  dine: <Coffee className="w-5 h-5" />,
+  knitting: <Scissors className="w-5 h-5" />,
 };
 
 interface ExperiencesProps {
@@ -43,7 +43,7 @@ export function Experiences({ onBookExperience }: ExperiencesProps) {
             Our Core Experiences
           </h2>
           <p className="text-muted-foreground text-lg">
-            Four ways to spend time at Claytopia. Explore any experience for the full story, or book directly.
+            Tap any experience to learn more — or quick-book from the card.
           </p>
         </motion.div>
 
@@ -56,76 +56,78 @@ export function Experiences({ onBookExperience }: ExperiencesProps) {
           viewport={{ once: true, margin: "-80px" }}
         >
           {experiences.map((exp) => (
-            <motion.div
-              key={exp.id}
-              variants={itemVariants}
-              className="group bg-background rounded-2xl border border-border/60 overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              data-testid={`card-experience-${exp.id}`}
-            >
-              {/* Image */}
-              <div className="relative h-52 overflow-hidden">
-                <img
-                  src={exp.image}
-                  alt={exp.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                {/* Icon badge */}
-                <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-md">
-                  {iconMap[exp.id]}
-                </div>
-                {/* Price tag */}
-                <div className="absolute bottom-4 left-4">
-                  <span className="text-xs font-medium text-white/90 bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
-                    {exp.price}
-                  </span>
-                </div>
-              </div>
+            <motion.div key={exp.id} variants={itemVariants} className="flex flex-col">
+              {/* Entire card is a link */}
+              <Link
+                href={`/experiences/${exp.id}`}
+                data-testid={`link-card-experience-${exp.id}`}
+                className="group relative bg-background rounded-2xl border border-border/60 overflow-hidden flex-1 flex flex-col hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
+              >
+                {/* Image */}
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={exp.image}
+                    alt={exp.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                    style={{ "--scale": "1.08" } as React.CSSProperties}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-              {/* Content */}
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {exp.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-5">
-                  {exp.shortDesc}
-                </p>
+                  {/* Icon badge */}
+                  <div className="absolute top-4 left-4 w-9 h-9 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center text-primary shadow-md">
+                    {iconMap[exp.id]}
+                  </div>
 
-                {/* Meta */}
-                <div className="text-xs text-muted-foreground mb-5 space-y-1">
-                  <p className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-primary inline-block" />
-                    {exp.duration}
+                  {/* Price pill */}
+                  <div className="absolute bottom-4 left-4">
+                    <span className="text-xs font-semibold text-white bg-black/45 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                      {exp.price}
+                    </span>
+                  </div>
+
+                  {/* "View Experience" hover overlay */}
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="px-4 py-2 bg-white/95 text-primary text-xs font-bold rounded-full shadow-lg translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+                      View Experience →
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-lg font-serif font-bold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">
+                    {exp.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4 line-clamp-3">
+                    {exp.shortDesc}
                   </p>
-                  <p className="flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-primary inline-block" />
-                    {exp.highlight}
-                  </p>
+                  <div className="text-xs text-muted-foreground space-y-1 mb-4">
+                    <p className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-primary inline-block shrink-0" />
+                      {exp.duration}
+                    </p>
+                    <p className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-primary inline-block shrink-0" />
+                      {exp.highlight}
+                    </p>
+                  </div>
                 </div>
+              </Link>
 
-                {/* CTAs */}
-                <div className="flex gap-2 mt-auto">
-                  <Link
-                    href={`/experiences/${exp.id}`}
-                    data-testid={`link-explore-${exp.id}`}
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-primary/10 text-primary text-sm font-semibold hover:bg-primary/20 transition-colors"
-                  >
-                    Explore <ArrowRight size={14} />
-                  </Link>
-                  <button
-                    onClick={() => onBookExperience(exp.bookingValue)}
-                    data-testid={`button-quick-book-${exp.id}`}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
-                  >
-                    Quick Book
-                  </button>
-                </div>
-              </div>
+              {/* Quick Book button sits outside the link so it doesn't navigate */}
+              <button
+                onClick={() => onBookExperience(exp.bookingValue)}
+                data-testid={`button-quick-book-${exp.id}`}
+                className="mt-2 w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold hover:bg-primary/90 active:scale-95 transition-all shadow-md flex items-center justify-center gap-2"
+              >
+                <CalendarCheck size={15} />
+                Quick Book
+              </button>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Bottom note */}
+        {/* Bottom nudge */}
         <motion.p
           className="text-center text-sm text-muted-foreground mt-10"
           initial={{ opacity: 0 }}
@@ -133,15 +135,14 @@ export function Experiences({ onBookExperience }: ExperiencesProps) {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          Not sure which to pick?{" "}
-          <a
-            href="#book"
-            onClick={(e) => { e.preventDefault(); document.getElementById("book")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="text-primary font-medium hover:underline"
-            data-testid="link-experiences-book-nudge"
+          Planning a group or event?{" "}
+          <Link
+            href="/plan-event"
+            className="text-primary font-semibold hover:underline"
+            data-testid="link-experiences-plan-event"
           >
-            Book a table and we'll help you choose.
-          </a>
+            Plan it with us →
+          </Link>
         </motion.p>
       </div>
     </section>
