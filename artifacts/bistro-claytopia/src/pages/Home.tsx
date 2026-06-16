@@ -20,6 +20,22 @@ export default function Home() {
   const [bookingExperience, setBookingExperience] = useState("");
   const [showBackToTop, setShowBackToTop] = useState(false);
 
+  // Scroll to a section when navigating here from another page via navbar
+  useEffect(() => {
+    const target = sessionStorage.getItem("scrollToSection");
+    if (target) {
+      sessionStorage.removeItem("scrollToSection");
+      // Delay so sections are mounted and positioned
+      setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          window.history.pushState(null, "", `#${target}`);
+        }
+      }, 250);
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setShowBackToTop(window.scrollY > 600);
     window.addEventListener("scroll", handleScroll, { passive: true });

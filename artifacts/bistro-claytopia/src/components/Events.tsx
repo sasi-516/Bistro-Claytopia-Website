@@ -1,51 +1,70 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Users, PartyPopper, Heart, Briefcase, Baby, Sparkles, ArrowRight, CalendarHeart } from "lucide-react";
+import {
+  Users, PartyPopper, Heart, Briefcase, Baby, Sparkles,
+  ArrowRight, CalendarHeart, ChevronRight,
+} from "lucide-react";
 
 const events = [
   {
     id: "birthday",
     title: "Birthday Parties",
-    icon: <PartyPopper className="w-6 h-6" />,
-    color: "bg-pink-100 text-pink-700",
-    desc: "Celebrate creatively. Packages include pottery pieces, food, decorations, and a dedicated host.",
+    icon: <PartyPopper className="w-5 h-5" />,
+    gradient: "from-pink-500 to-rose-400",
+    bg: "bg-pink-50",
+    desc: "Packages include pottery pieces, food, decorations & a dedicated host.",
   },
   {
     id: "date",
-    title: "Couple Dates",
-    icon: <Heart className="w-6 h-6" />,
-    color: "bg-rose-100 text-rose-700",
-    desc: "A unique romantic experience. Paint together, eat together, and create a lasting memory.",
+    title: "Couple's Date Night",
+    icon: <Heart className="w-5 h-5" />,
+    gradient: "from-rose-500 to-pink-400",
+    bg: "bg-rose-50",
+    desc: "Paint together, eat together, and leave with a lasting handmade memory.",
   },
   {
     id: "corporate",
     title: "Corporate Outings",
-    icon: <Briefcase className="w-6 h-6" />,
-    color: "bg-blue-100 text-blue-700",
-    desc: "Team building through art. Boost morale and creativity with guided wheel and painting sessions.",
+    icon: <Briefcase className="w-5 h-5" />,
+    gradient: "from-blue-600 to-blue-400",
+    bg: "bg-blue-50",
+    desc: "Team building through art — guided wheel sessions and café dining.",
   },
   {
     id: "family",
     title: "Family Workshops",
-    icon: <Users className="w-6 h-6" />,
-    color: "bg-amber-100 text-amber-700",
-    desc: "Fun for all ages. Spend quality time together away from screens.",
+    icon: <Users className="w-5 h-5" />,
+    gradient: "from-amber-500 to-orange-400",
+    bg: "bg-amber-50",
+    desc: "Fun for all ages. Quality time away from screens, with clay in hand.",
   },
   {
     id: "kids",
     title: "Kids' Parties",
-    icon: <Baby className="w-6 h-6" />,
-    color: "bg-violet-100 text-violet-700",
+    icon: <Baby className="w-5 h-5" />,
+    gradient: "from-violet-500 to-purple-400",
+    bg: "bg-violet-50",
     desc: "Messy, joyful, and unforgettable. Clay, colour, and cake for little artists.",
   },
   {
     id: "custom",
     title: "Custom Events",
-    icon: <Sparkles className="w-6 h-6" />,
-    color: "bg-teal-100 text-teal-700",
-    desc: "Got something unique in mind? Tell us and we'll build it around you.",
+    icon: <Sparkles className="w-5 h-5" />,
+    gradient: "from-teal-500 to-emerald-400",
+    bg: "bg-teal-50",
+    desc: "Something unique in mind? Tell us and we'll build it around you.",
   },
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+};
 
 export function Events() {
   return (
@@ -53,79 +72,112 @@ export function Events() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-start">
 
-          {/* Image grid */}
+          {/* Staggered image grid */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-2 gap-3 lg:gap-4"
           >
-            <div className="space-y-4 pt-8">
-              <img src="/images/gallery-2.png" alt="Friends painting" className="rounded-2xl object-cover w-full aspect-[4/5] shadow-lg" />
-              <img src="/images/gallery-4.png" alt="Couple painting" className="rounded-2xl object-cover w-full aspect-square shadow-lg" />
+            <div className="space-y-3 lg:space-y-4 pt-8">
+              <img
+                src="/images/gallery-2.png"
+                alt="Friends painting together"
+                className="rounded-2xl object-cover w-full aspect-[4/5] shadow-lg ring-1 ring-black/5"
+              />
+              <img
+                src="/images/gallery-4.png"
+                alt="Couple at Claytopia"
+                className="rounded-2xl object-cover w-full aspect-square shadow-lg ring-1 ring-black/5"
+              />
             </div>
-            <div className="space-y-4">
-              <img src="/images/hero.png" alt="Studio" className="rounded-2xl object-cover w-full aspect-square shadow-lg" />
-              <img src="/images/painting.png" alt="Painting details" className="rounded-2xl object-cover w-full aspect-[4/5] shadow-lg" />
+            <div className="space-y-3 lg:space-y-4">
+              <img
+                src="/images/hero.png"
+                alt="Claytopia studio"
+                className="rounded-2xl object-cover w-full aspect-square shadow-lg ring-1 ring-black/5"
+              />
+              <img
+                src="/images/painting.png"
+                alt="Pottery detail"
+                className="rounded-2xl object-cover w-full aspect-[4/5] shadow-lg ring-1 ring-black/5"
+              />
             </div>
           </motion.div>
 
-          {/* Content */}
+          {/* Content side */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 28 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3">Private & Group Events</p>
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-5">
+            <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3">
+              Private & Group Events
+            </p>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4">
               Events & Groups
             </h2>
-            <p className="text-lg text-muted-foreground mb-10">
-              Bistro Claytopia is the perfect venue for your next gathering. Tailored packages for every occasion and group size.
+            <p className="text-base md:text-lg text-muted-foreground mb-8 leading-relaxed">
+              Bistro Claytopia is the perfect venue for your next gathering — tailored packages for every occasion and group size.
             </p>
 
-            {/* Event type cards — 3 col grid, each links to plan-event */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
+            {/* 3×2 even event cards */}
+            <motion.div
+              className="grid grid-cols-3 gap-3 mb-8"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+            >
               {events.map((event) => (
-                <Link
-                  key={event.id}
-                  href={`/plan-event?type=${event.id}`}
-                  data-testid={`link-event-type-${event.id}`}
-                  className="group flex flex-col items-start gap-2.5 p-4 bg-background rounded-2xl border border-border/60 hover:border-primary/40 hover:shadow-md transition-all cursor-pointer"
-                >
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${event.color} group-hover:scale-110 transition-transform`}>
-                    {event.icon}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors leading-snug">
+                <motion.div key={event.id} variants={cardVariants}>
+                  <Link
+                    href={`/plan-event?type=${event.id}`}
+                    data-testid={`link-event-type-${event.id}`}
+                    className="group flex flex-col h-full p-3.5 bg-background rounded-2xl border border-border/60 hover:border-primary/30 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                  >
+                    {/* Icon */}
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${event.gradient} flex items-center justify-center text-white mb-3 shadow-sm group-hover:scale-105 transition-transform duration-200`}>
+                      {event.icon}
+                    </div>
+                    {/* Title */}
+                    <h3 className="font-bold text-xs md:text-sm text-foreground group-hover:text-primary transition-colors leading-snug mb-1.5">
                       {event.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed line-clamp-2">{event.desc}</p>
-                  </div>
-                  <span className="text-[10px] font-semibold text-primary flex items-center gap-0.5 mt-auto opacity-0 group-hover:opacity-100 transition-opacity">
-                    Plan this <ArrowRight size={10} />
-                  </span>
-                </Link>
+                    {/* Description */}
+                    <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+                      {event.desc}
+                    </p>
+                    {/* Arrow hint */}
+                    <div className="mt-2.5 flex items-center gap-0.5 text-[10px] font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      Plan this <ChevronRight size={10} />
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Plan an Event CTA */}
-            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shrink-0 shadow-md">
-                <CalendarHeart size={22} className="text-primary-foreground" />
+            {/* CTA banner */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 bg-gradient-to-br from-primary/8 to-secondary/8 border border-primary/15 rounded-2xl">
+              <div className="w-11 h-11 rounded-2xl bg-primary flex items-center justify-center shrink-0 shadow-md">
+                <CalendarHeart size={20} className="text-primary-foreground" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-foreground mb-0.5">Ready to plan your event?</h3>
-                <p className="text-sm text-muted-foreground">Build your experience, add activities & add-ons, and get a custom quote — all in a few steps.</p>
+                <p className="font-bold text-foreground text-sm mb-0.5">
+                  Ready to plan your event?
+                </p>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Choose activities, add-ons, date & time — get a custom quote in minutes.
+                </p>
               </div>
               <Link
                 href="/plan-event"
                 data-testid="link-events-plan-cta"
-                className="shrink-0 flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl font-semibold text-sm hover:bg-primary/90 transition-all hover:scale-105 shadow-md whitespace-nowrap"
+                className="shrink-0 flex items-center gap-1.5 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl font-semibold text-sm hover:bg-primary/90 transition-all hover:scale-105 shadow-md whitespace-nowrap"
               >
-                Plan Your Event <ArrowRight size={14} />
+                Plan Your Event <ArrowRight size={13} />
               </Link>
             </div>
           </motion.div>

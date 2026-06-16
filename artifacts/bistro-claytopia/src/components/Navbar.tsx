@@ -62,11 +62,13 @@ export function Navbar() {
   const handleHashClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
+    const id = href.replace("#", "");
     if (!isHome) {
-      window.location.href = `/${href}`;
+      // Store the target section so Home can scroll to it after mount
+      sessionStorage.setItem("scrollToSection", id);
+      window.location.href = "/";
       return;
     }
-    const id = href.replace("#", "");
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });

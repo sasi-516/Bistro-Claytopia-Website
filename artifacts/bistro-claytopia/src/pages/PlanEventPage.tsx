@@ -164,18 +164,18 @@ export default function PlanEventPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* Hero header */}
-      <section className="relative h-[46vh] min-h-[340px] flex items-end overflow-hidden">
+      {/* Hero header — sits cleanly above wizard, no overlap */}
+      <section className="relative h-[44vh] min-h-[320px] max-h-[460px] flex items-end overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('/images/gallery-2.png')" }}
           role="img"
           aria-label="Guests enjoying a group pottery event at Bistro Claytopia"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/20" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 md:px-6 pb-10 md:pb-14 w-full">
-          <nav aria-label="Breadcrumb" className="mb-5">
+        <div className="relative z-10 container mx-auto px-4 md:px-6 pb-10 md:pb-12 w-full">
+          <nav aria-label="Breadcrumb" className="mb-4">
             <ol className="flex items-center gap-2 text-white/60 text-sm">
               <li>
                 <Link href="/" className="hover:text-white transition-colors" data-testid="link-plan-back">
@@ -187,25 +187,25 @@ export default function PlanEventPage() {
             </ol>
           </nav>
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.65 }}
           >
             <p className="text-primary text-xs uppercase tracking-[0.2em] font-semibold mb-2">
               Private & Group Events
             </p>
-            <h1 className="text-4xl md:text-6xl font-serif font-bold text-white drop-shadow-lg mb-3">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-white drop-shadow-lg mb-2.5">
               Plan Your Event
             </h1>
-            <p className="text-white/75 text-lg max-w-xl leading-relaxed">
+            <p className="text-white/70 text-base md:text-lg max-w-xl leading-relaxed">
               Build your perfect Claytopia experience — choose activities, add-ons, and we'll handle every detail.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Wizard */}
-      <section className="pb-20 md:pb-28">
+      {/* Wizard — sits on its own white section, fully separate from hero */}
+      <section className="pb-20 md:pb-28 bg-background">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
           <StepBar current={step} />
 
