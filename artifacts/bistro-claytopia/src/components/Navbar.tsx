@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X, ShoppingBag, BookOpen } from "lucide-react";
 
 interface NavLink {
   name: string;
@@ -11,7 +11,6 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { name: "Experiences", href: "#experiences", sectionId: "experiences", isHash: true },
-  { name: "Menu", href: "#menu", sectionId: "menu", isHash: true },
   { name: "Events", href: "#events", sectionId: "events", isHash: true },
   { name: "What's On", href: "#whats-on", sectionId: "whats-on", isHash: true },
   { name: "Gallery", href: "#gallery", sectionId: "gallery", isHash: true },
@@ -77,7 +76,8 @@ export function Navbar() {
 
   const isStorePage = location.startsWith("/store");
   const isExpPage = location.startsWith("/experiences/");
-  const onSubPage = isStorePage || isExpPage;
+  const isMenuPage = location.startsWith("/menu");
+  const onSubPage = isStorePage || isExpPage || isMenuPage;
 
   return (
     <>
@@ -154,6 +154,22 @@ export function Navbar() {
                     </li>
                   );
                 })}
+                {/* Menu page link */}
+                <li>
+                  <Link
+                    href="/menu"
+                    data-testid="link-nav-menu"
+                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                      isMenuPage
+                        ? "text-primary"
+                        : isScrolled || onSubPage
+                        ? "text-foreground/70 hover:text-foreground"
+                        : "text-white/80 hover:text-white"
+                    }`}
+                  >
+                    Menu
+                  </Link>
+                </li>
                 {/* Store link */}
                 <li>
                   <Link
@@ -244,6 +260,21 @@ export function Navbar() {
                 </li>
               );
             })}
+            <li>
+              <Link
+                href="/menu"
+                onClick={() => setIsMobileMenuOpen(false)}
+                data-testid="link-mobile-menu"
+                className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${
+                  isMenuPage ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <BookOpen size={18} />
+                  Menu
+                </span>
+              </Link>
+            </li>
             <li>
               <Link
                 href="/store"

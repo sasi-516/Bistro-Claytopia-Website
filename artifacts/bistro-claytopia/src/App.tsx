@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import ExperiencePage from "@/pages/ExperiencePage";
 import StorePage from "@/pages/StorePage";
+import MenuPage from "@/pages/MenuPage";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/menu" component={MenuPage} />
       <Route path="/experiences/:id" component={ExperiencePage} />
       <Route path="/store" component={StorePage} />
       <Route component={NotFound} />
