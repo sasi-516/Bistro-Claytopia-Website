@@ -205,7 +205,7 @@ export default function PlanEventPage() {
       </section>
 
       {/* Wizard — sits on its own white section, fully separate from hero */}
-      <section className="pb-20 md:pb-28 bg-background">
+      <section className="pt-10 md:pt-14 pb-20 md:pb-28 bg-background">
         <div className="container mx-auto px-4 md:px-6 max-w-5xl">
           <StepBar current={step} />
 
