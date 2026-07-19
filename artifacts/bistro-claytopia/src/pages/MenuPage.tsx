@@ -23,7 +23,7 @@ export default function MenuPage() {
       if (!el) { el = document.createElement("meta"); el.setAttribute(attr, name); document.head.appendChild(el); }
       el.content = content;
     };
-    setMeta("name", "description", "Browse the full menu at Bistro Claytopia – artisanal coffee, fresh mains, desserts, and pottery specials. Explore or place your order online.");
+    setMeta("name", "description", "Browse the full Bistro Claytopia menu — breakfast, burgers, pasta, pizza, drinks, desserts and more. Explore online or download the PDF.");
     setMeta("property", "og:title", "Menu | Bistro Claytopia");
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
@@ -54,9 +54,17 @@ export default function MenuPage() {
               Our Menu
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Artisanal coffee, fresh continental plates, desserts, and a few things you'll only find here.
-              Browse our menu like a book — or jump straight to ordering.
+              Breakfast platters, burgers, pasta, pizza, Asian specials, coffee, boba and desserts.
+              Browse our digital menu — or download the full PDF.
             </p>
+            <a
+              href="/menu/bistro-claytopia-menu.pdf"
+              download
+              className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
+              data-testid="link-menu-pdf"
+            >
+              Download full menu (PDF)
+            </a>
           </div>
 
           {/* Mode toggle */}
@@ -65,11 +73,10 @@ export default function MenuPage() {
               <button
                 onClick={() => setMode("explore")}
                 data-testid="button-mode-explore"
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${
-                  mode === "explore"
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${mode === "explore"
                     ? "bg-primary text-primary-foreground shadow-md"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                  }`}
               >
                 <BookOpen size={16} />
                 Explore Menu
@@ -77,11 +84,10 @@ export default function MenuPage() {
               <button
                 onClick={() => setMode("order")}
                 data-testid="button-mode-order"
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${
-                  mode === "order"
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${mode === "order"
                     ? "bg-primary text-primary-foreground shadow-md"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                  }`}
               >
                 <ShoppingBag size={16} />
                 Place Order
@@ -101,7 +107,7 @@ export default function MenuPage() {
             >
               {mode === "explore"
                 ? "Flip through our menu like a book — one category at a time."
-                : "Browse items, add to your order, and choose how to pay."}
+                : "Meta testing — browse the menu and cart; ordering is under development."}
             </motion.p>
           </AnimatePresence>
         </div>

@@ -4,54 +4,55 @@ import {
   Users, PartyPopper, Heart, Briefcase, Baby, Sparkles,
   ArrowRight, CalendarHeart, ChevronRight,
 } from "lucide-react";
+import { StudioAmbience } from "@/components/decor/StudioAmbience";
 
 const events = [
   {
     id: "birthday",
     title: "Birthday Parties",
     icon: <PartyPopper className="w-5 h-5" />,
-    gradient: "from-pink-500 to-rose-400",
-    bg: "bg-pink-50",
+    gradient: "from-paint-pink to-paint-orange",
+    bg: "bg-tint-pink",
     desc: "Packages include pottery pieces, food, decorations & a dedicated host.",
   },
   {
     id: "date",
     title: "Couple's Date Night",
     icon: <Heart className="w-5 h-5" />,
-    gradient: "from-rose-500 to-pink-400",
-    bg: "bg-rose-50",
+    gradient: "from-paint-pink to-paint-purple",
+    bg: "bg-tint-pink",
     desc: "Paint together, eat together, and leave with a lasting handmade memory.",
   },
   {
     id: "corporate",
     title: "Corporate Outings",
     icon: <Briefcase className="w-5 h-5" />,
-    gradient: "from-blue-600 to-blue-400",
-    bg: "bg-blue-50",
+    gradient: "from-paint-blue to-paint-mint",
+    bg: "bg-tint-blue",
     desc: "Team building through art — guided wheel sessions and café dining.",
   },
   {
     id: "family",
     title: "Family Workshops",
     icon: <Users className="w-5 h-5" />,
-    gradient: "from-amber-500 to-orange-400",
-    bg: "bg-amber-50",
+    gradient: "from-primary to-paint-yellow",
+    bg: "bg-tint-yellow",
     desc: "Fun for all ages. Quality time away from screens, with clay in hand.",
   },
   {
     id: "kids",
     title: "Kids' Parties",
     icon: <Baby className="w-5 h-5" />,
-    gradient: "from-violet-500 to-purple-400",
-    bg: "bg-violet-50",
+    gradient: "from-paint-mint to-paint-blue",
+    bg: "bg-tint-mint",
     desc: "Messy, joyful, and unforgettable. Clay, colour, and cake for little artists.",
   },
   {
     id: "custom",
     title: "Custom Events",
     icon: <Sparkles className="w-5 h-5" />,
-    gradient: "from-teal-500 to-emerald-400",
-    bg: "bg-teal-50",
+    gradient: "from-paint-purple to-paint-pink",
+    bg: "bg-tint-purple",
     desc: "Something unique in mind? Tell us and we'll build it around you.",
   },
 ];
@@ -63,13 +64,14 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 export function Events() {
   return (
-    <section id="events" className="py-20 md:py-28 bg-card border-y border-border/50">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="events" className="py-20 md:py-28 bg-section-mint border-y border-border/50 relative overflow-hidden">
+      <StudioAmbience tone="mint" />
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-start">
 
           {/* Staggered image grid */}
@@ -136,7 +138,7 @@ export function Events() {
                   <Link
                     href={`/plan-event?type=${event.id}`}
                     data-testid={`link-event-type-${event.id}`}
-                    className="group flex flex-col h-full p-3.5 bg-background rounded-2xl border border-border/60 hover:border-primary/30 hover:shadow-lg transition-all duration-200 cursor-pointer"
+                    className={`group flex flex-col h-full p-3.5 rounded-2xl border border-white/70 card-art cursor-pointer ${event.bg}`}
                   >
                     {/* Icon */}
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${event.gradient} flex items-center justify-center text-white mb-3 shadow-sm group-hover:scale-105 transition-transform duration-200`}>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
@@ -14,33 +14,49 @@
 
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
-  --color-card-border: hsl(var(--card-border));
 
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-popover-border: hsl(var(--popover-border));
 
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-primary-border: var(--primary-border);
 
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-secondary-border: var(--secondary-border);
 
   --color-muted: hsl(var(--muted));
   --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-muted-border: var(--muted-border);
 
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-accent-border: var(--accent-border);
 
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-destructive-border: var(--destructive-border);
 
-  --font-sans: 'DM Sans', sans-serif;
+  /* Canvas & Clay — artist's palette */
+  --color-paint-blue: hsl(var(--paint-blue));
+  --color-paint-orange: hsl(var(--paint-orange));
+  --color-paint-purple: hsl(var(--paint-purple));
+  --color-paint-mint: hsl(var(--paint-mint));
+  --color-paint-pink: hsl(var(--paint-pink));
+  --color-paint-yellow: hsl(var(--paint-yellow));
+  --color-navy: hsl(var(--navy));
+
+  /* Section backgrounds */
+  --color-section-blue: hsl(var(--section-blue));
+  --color-section-yellow: hsl(var(--section-yellow));
+  --color-section-pink: hsl(var(--section-pink));
+  --color-section-purple: hsl(var(--section-purple));
+  --color-section-mint: hsl(var(--section-mint));
+
+  /* Tinted cards */
+  --color-tint-blue: hsl(var(--tint-blue));
+  --color-tint-purple: hsl(var(--tint-purple));
+  --color-tint-yellow: hsl(var(--tint-yellow));
+  --color-tint-pink: hsl(var(--tint-pink));
+  --color-tint-mint: hsl(var(--tint-mint));
+
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
   --font-serif: 'Playfair Display', serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
@@ -51,68 +67,58 @@
 }
 
 :root {
-  /* Warm terracotta-cream palette */
-  --background: 38 35% 97%;
-  --foreground: 22 45% 14%;
+  /* 🎨 Canvas & Clay palette */
+  --background: 20 100% 99%;
+  --foreground: 235 21% 21%;
 
-  --card: 36 28% 94%;
-  --card-foreground: 22 45% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 235 21% 21%;
 
-  --popover: 38 35% 97%;
-  --popover-foreground: 22 45% 14%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 235 21% 21%;
 
-  /* Terracotta primary */
-  --primary: 16 62% 48%;
-  --primary-foreground: 38 40% 97%;
+  --primary: 43 100% 51%;
+  --primary-foreground: 235 21% 21%;
 
-  /* Warm brown secondary */
-  --secondary: 26 38% 36%;
-  --secondary-foreground: 38 35% 97%;
+  --secondary: 217 100% 61%;
+  --secondary-foreground: 0 0% 100%;
 
-  --muted: 32 22% 88%;
-  --muted-foreground: 22 18% 42%;
+  --muted: 214 60% 96%;
+  --muted-foreground: 235 15% 45%;
 
-  /* Sage green accent */
-  --accent: 130 18% 82%;
-  --accent-foreground: 22 45% 14%;
+  --accent: 262 82% 57%;
+  --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 84% 60%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive: 346 84% 61%;
+  --destructive-foreground: 0 0% 100%;
 
-  --border: 32 22% 84%;
-  --input: 32 22% 84%;
-  --ring: 16 62% 48%;
-  --radius: 0.625rem;
-}
+  --border: 214 40% 92%;
+  --input: 214 40% 92%;
+  --ring: 43 100% 51%;
+  --radius: 0.75rem;
 
-.dark {
-  --background: 22 20% 10%;
-  --foreground: 36 28% 90%;
+  /* Paint tube colours */
+  --paint-blue: 217 100% 61%;
+  --paint-orange: 22 97% 50%;
+  --paint-purple: 262 82% 57%;
+  --paint-mint: 162 95% 43%;
+  --paint-pink: 346 84% 61%;
+  --paint-yellow: 42 100% 70%;
+  --navy: 235 21% 21%;
 
-  --card: 22 20% 13%;
-  --card-foreground: 36 28% 90%;
+  /* Section tints */
+  --section-blue: 214 100% 96%;
+  --section-yellow: 45 100% 94%;
+  --section-pink: 340 100% 97%;
+  --section-purple: 262 100% 97%;
+  --section-mint: 158 100% 96%;
 
-  --popover: 22 20% 10%;
-  --popover-foreground: 36 28% 90%;
-
-  --primary: 16 58% 55%;
-  --primary-foreground: 22 20% 10%;
-
-  --secondary: 26 28% 28%;
-  --secondary-foreground: 36 28% 90%;
-
-  --muted: 22 16% 20%;
-  --muted-foreground: 36 18% 65%;
-
-  --accent: 130 14% 22%;
-  --accent-foreground: 36 28% 90%;
-
-  --destructive: 0 62% 30%;
-  --destructive-foreground: 0 0% 98%;
-
-  --border: 22 16% 24%;
-  --input: 22 16% 24%;
-  --ring: 16 58% 55%;
+  /* Card tints */
+  --tint-blue: 214 100% 91%;
+  --tint-purple: 262 80% 93%;
+  --tint-yellow: 45 100% 88%;
+  --tint-pink: 340 90% 93%;
+  --tint-mint: 158 80% 90%;
 }
 
 @layer base {
@@ -134,31 +140,66 @@
     @apply font-serif;
   }
 
-  /* Focus ring accessibility */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }
 
-  /* Smooth image loading */
   img {
     @apply transition-opacity duration-300;
   }
 
-  /* Selection color */
   ::selection {
-    background-color: hsl(var(--primary) / 0.2);
+    background-color: hsl(var(--paint-blue) / 0.2);
     color: hsl(var(--foreground));
   }
 }
 
 @layer utilities {
-  /* Subtle section divider */
   .section-divider {
     @apply border-t border-border/60;
   }
 
-  /* Text balance for headings */
   .text-balance {
     text-wrap: balance;
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+
+  /* Colorful gradient text */
+  .text-paint-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--paint-orange)) 0%,
+      hsl(var(--paint-pink)) 35%,
+      hsl(var(--paint-purple)) 65%,
+      hsl(var(--paint-blue)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Playful card hover */
+  .card-art {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .card-art:hover {
+    transform: translateY(-8px) rotate(1deg);
+    box-shadow: 0 20px 40px -12px hsl(var(--navy) / 0.15);
+  }
+
+  .card-art:active {
+    transform: translateY(-4px) rotate(0.5deg);
   }
 }

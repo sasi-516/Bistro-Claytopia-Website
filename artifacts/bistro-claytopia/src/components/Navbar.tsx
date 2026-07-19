@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X, ShoppingBag, BookOpen } from "lucide-react";
+import { BrandMark } from "@/components/BrandMark";
 
 interface NavLink {
   name: string;
@@ -95,11 +96,10 @@ export function Navbar() {
       />
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || onSubPage
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || onSubPage
             ? "bg-background/96 backdrop-blur-md shadow-sm py-3"
-            : "bg-transparent py-5"
-        }`}
+            : "bg-transparent py-3.5 sm:py-5"
+          }`}
         role="navigation"
         aria-label="Main navigation"
       >
@@ -110,18 +110,12 @@ export function Navbar() {
               onClick={() => { if (isHome) window.scrollTo({ top: 0, behavior: "smooth" }); }}
               aria-label="Bistro Claytopia – Home"
               data-testid="link-home"
-              className="flex items-center"
+              className="flex items-center min-w-0 max-w-[calc(100%-3rem)]"
             >
-              <span
-                className={`font-serif text-xl md:text-2xl font-bold tracking-tight transition-colors ${
-                  isScrolled || onSubPage ? "text-primary" : "text-white drop-shadow-md"
-                }`}
-              >
-                Bistro{" "}
-                <span className={isScrolled || onSubPage ? "text-foreground" : "text-white/90"}>
-                  Claytopia
-                </span>
-              </span>
+              <BrandMark
+                variant={isScrolled || onSubPage ? "light" : "hero"}
+                size="nav"
+              />
             </Link>
 
             {/* Desktop Nav */}
@@ -132,11 +126,11 @@ export function Navbar() {
                   const textClass =
                     isScrolled || onSubPage
                       ? isActive
-                        ? "text-primary"
+                        ? "text-paint-blue"
                         : "text-foreground/70 hover:text-foreground"
                       : isActive
-                      ? "text-white"
-                      : "text-white/80 hover:text-white";
+                        ? "text-white"
+                        : "text-white/85 hover:text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]";
                   return (
                     <li key={link.name}>
                       <a
@@ -148,9 +142,8 @@ export function Navbar() {
                         {link.name}
                         {isActive && (
                           <span
-                            className={`absolute bottom-0.5 left-3 right-3 h-0.5 rounded-full ${
-                              isScrolled || onSubPage ? "bg-primary" : "bg-white"
-                            }`}
+                            className={`absolute bottom-0.5 left-3 right-3 h-0.5 rounded-full ${isScrolled || onSubPage ? "bg-paint-blue" : "bg-primary"
+                              }`}
                           />
                         )}
                       </a>
@@ -162,13 +155,12 @@ export function Navbar() {
                   <Link
                     href="/menu"
                     data-testid="link-nav-menu"
-                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                      isMenuPage
-                        ? "text-primary"
+                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all ${isMenuPage
+                        ? isScrolled || onSubPage ? "text-paint-blue" : "text-white"
                         : isScrolled || onSubPage
-                        ? "text-foreground/70 hover:text-foreground"
-                        : "text-white/80 hover:text-white"
-                    }`}
+                          ? "text-foreground/70 hover:text-foreground"
+                          : "text-white/85 hover:text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
+                      }`}
                   >
                     Menu
                   </Link>
@@ -178,13 +170,12 @@ export function Navbar() {
                   <Link
                     href="/store"
                     data-testid="link-nav-store"
-                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
-                      isStorePage
-                        ? "text-primary"
+                    className={`relative px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${isStorePage
+                        ? isScrolled || onSubPage ? "text-paint-blue" : "text-white"
                         : isScrolled || onSubPage
-                        ? "text-foreground/70 hover:text-foreground"
-                        : "text-white/80 hover:text-white"
-                    }`}
+                          ? "text-foreground/70 hover:text-foreground"
+                          : "text-white/85 hover:text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
+                      }`}
                   >
                     <ShoppingBag size={13} />
                     Store
@@ -199,11 +190,7 @@ export function Navbar() {
                 href="#book"
                 onClick={(e) => handleHashClick(e, "#book")}
                 data-testid="button-book-nav"
-                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-105 ${
-                  isScrolled || onSubPage
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
-                    : "bg-white text-primary hover:bg-white/90 shadow-lg"
-                }`}
+                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/25`}
               >
                 Book a Table
               </a>
@@ -211,11 +198,10 @@ export function Navbar() {
 
             {/* Mobile menu button */}
             <button
-              className={`lg:hidden p-2 -mr-2 rounded-lg transition-colors ${
-                isScrolled || onSubPage
+              className={`lg:hidden p-2 -mr-2 rounded-lg transition-colors ${isScrolled || onSubPage
                   ? "text-foreground hover:bg-muted"
-                  : "text-white hover:bg-white/10"
-              }`}
+                  : "text-white hover:bg-white/15 drop-shadow-[0_1px_6px_rgba(0,0,0,0.45)]"
+                }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle navigation menu"
               aria-expanded={isMobileMenuOpen}
@@ -228,13 +214,12 @@ export function Navbar() {
 
         {/* Mobile nav */}
         <div
-          className={`fixed inset-0 bg-background/98 backdrop-blur-xl z-40 transition-all duration-300 ease-in-out lg:hidden flex flex-col ${
-            isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-          }`}
+          className={`fixed inset-0 bg-background/98 backdrop-blur-xl z-40 transition-all duration-300 ease-in-out lg:hidden flex flex-col ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
           aria-hidden={!isMobileMenuOpen}
         >
           <div className="flex items-center justify-between px-6 py-5 border-b border-border/50">
-            <span className="font-serif text-xl font-bold text-primary">Bistro Claytopia</span>
+            <BrandMark variant="light" size="drawer" />
             <button
               className="p-2 text-foreground hover:bg-muted rounded-lg"
               onClick={() => setIsMobileMenuOpen(false)}
@@ -253,9 +238,8 @@ export function Navbar() {
                     href={link.href}
                     onClick={(e) => handleHashClick(e, link.href)}
                     data-testid={`link-mobile-${link.sectionId}`}
-                    className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${
-                      isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
-                    }`}
+                    className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
+                      }`}
                   >
                     {link.name}
                     {isActive && <span className="w-2 h-2 rounded-full bg-primary" />}
@@ -268,9 +252,8 @@ export function Navbar() {
                 href="/menu"
                 onClick={() => setIsMobileMenuOpen(false)}
                 data-testid="link-mobile-menu"
-                className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${
-                  isMenuPage ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
-                }`}
+                className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${isMenuPage ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
+                  }`}
               >
                 <span className="flex items-center gap-2">
                   <BookOpen size={18} />
@@ -283,9 +266,8 @@ export function Navbar() {
                 href="/store"
                 onClick={() => setIsMobileMenuOpen(false)}
                 data-testid="link-mobile-store"
-                className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${
-                  isStorePage ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
-                }`}
+                className={`flex items-center justify-between w-full px-4 py-4 rounded-xl text-lg font-serif transition-all ${isStorePage ? "bg-primary/10 text-primary" : "text-foreground hover:bg-muted"
+                  }`}
               >
                 <span className="flex items-center gap-2">
                   <ShoppingBag size={18} />

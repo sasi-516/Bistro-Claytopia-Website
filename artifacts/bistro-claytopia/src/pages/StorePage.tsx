@@ -12,28 +12,28 @@ const comingSoonProducts = [
     title: "Handcrafted Pottery",
     desc: "Mugs, bowls, plates, and vases made and painted by our in-house artists. Every piece is unique.",
     tag: "Bestseller",
-    tagColor: "bg-amber-100 text-amber-800",
+    tagColor: "bg-tint-blue text-paint-blue",
   },
   {
     icon: <Package className="w-6 h-6" />,
     title: "Paint-at-Home Kits",
     desc: "Everything you need to paint your own ceramic at home — bisque piece, glazes, brushes, and instructions.",
     tag: "Most Requested",
-    tagColor: "bg-blue-100 text-blue-800",
+    tagColor: "bg-tint-purple text-paint-purple",
   },
   {
     icon: <Gift className="w-6 h-6" />,
     title: "Gift Vouchers",
     desc: "Give the gift of creativity. Vouchers for pottery sessions, wheel classes, and café experiences.",
     tag: "Perfect Gift",
-    tagColor: "bg-rose-100 text-rose-800",
+    tagColor: "bg-tint-pink text-paint-pink",
   },
   {
     icon: <Sparkles className="w-6 h-6" />,
     title: "Studio Merchandise",
     desc: "Tote bags, aprons, art prints, and Claytopia-branded keepsakes from our studio to your home.",
     tag: "Coming Soon",
-    tagColor: "bg-green-100 text-green-800",
+    tagColor: "bg-tint-mint text-paint-mint",
   },
 ];
 

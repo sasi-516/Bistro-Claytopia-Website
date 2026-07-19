@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, Users, Music, Paintbrush, Star, Zap } from "lucide-react";
+import { StudioAmbience } from "@/components/decor/StudioAmbience";
 
 interface Event {
   id: string;
@@ -96,11 +97,11 @@ const upcomingEvents: Event[] = [
 ];
 
 const typeColors: Record<string, string> = {
-  "Live Music": "bg-amber-100 text-amber-800 border-amber-200",
-  Workshop: "bg-blue-50 text-blue-700 border-blue-200",
-  Fest: "bg-rose-50 text-rose-700 border-rose-200",
-  "Special Event": "bg-purple-50 text-purple-700 border-purple-200",
-  Class: "bg-green-50 text-green-700 border-green-200",
+  "Live Music": "bg-tint-yellow text-paint-orange border-paint-yellow/40",
+  Workshop: "bg-tint-blue text-paint-blue border-paint-blue/30",
+  Fest: "bg-tint-pink text-paint-pink border-paint-pink/30",
+  "Special Event": "bg-tint-purple text-paint-purple border-paint-purple/30",
+  Class: "bg-tint-mint text-paint-mint border-paint-mint/30",
 };
 
 function scrollToBook() {
@@ -119,7 +120,8 @@ export function WhatsOn() {
       aria-label="What's On"
     >
       {/* Decorative blobs */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <StudioAmbience tone="light" />
+      <div className="absolute top-0 right-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none z-0" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -174,9 +176,8 @@ export function WhatsOn() {
                 <div className="flex items-start justify-between gap-4 mb-5">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span
-                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${
-                        typeColors[event.type] ?? "bg-muted text-muted-foreground border-border"
-                      }`}
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border ${typeColors[event.type] ?? "bg-muted text-muted-foreground border-border"
+                        }`}
                     >
                       {event.typeIcon}
                       {event.type}
@@ -241,9 +242,8 @@ export function WhatsOn() {
             >
               <div className="flex items-center gap-2 flex-wrap mb-4">
                 <span
-                  className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-semibold border ${
-                    typeColors[event.type] ?? "bg-muted text-muted-foreground border-border"
-                  }`}
+                  className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-semibold border ${typeColors[event.type] ?? "bg-muted text-muted-foreground border-border"
+                    }`}
                 >
                   {event.typeIcon}
                   {event.type}

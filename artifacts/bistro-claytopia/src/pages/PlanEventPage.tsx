@@ -14,12 +14,12 @@ import { useToast } from "@/hooks/use-toast";
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const eventTypes = [
-  { id: "birthday", label: "Birthday Party", icon: <PartyPopper size={28} />, color: "from-pink-500 to-rose-400", hint: "Packages from 8 guests" },
-  { id: "date", label: "Couple's Date", icon: <Heart size={28} />, color: "from-rose-500 to-pink-400", hint: "Perfect for 2" },
-  { id: "corporate", label: "Corporate Outing", icon: <Briefcase size={28} />, color: "from-blue-600 to-blue-400", hint: "10–50 people" },
-  { id: "family", label: "Family Day", icon: <Users size={28} />, color: "from-amber-500 to-orange-400", hint: "3–20 people" },
-  { id: "kids", label: "Kids' Party", icon: <Baby size={28} />, color: "from-violet-500 to-purple-400", hint: "Ages 5–12" },
-  { id: "custom", label: "Custom Event", icon: <Sparkles size={28} />, color: "from-teal-500 to-emerald-400", hint: "You tell us!" },
+  { id: "birthday", label: "Birthday Party", icon: <PartyPopper size={28} />, color: "from-paint-pink to-paint-orange", hint: "Packages from 8 guests" },
+  { id: "date", label: "Couple's Date", icon: <Heart size={28} />, color: "from-paint-pink to-paint-purple", hint: "Perfect for 2" },
+  { id: "corporate", label: "Corporate Outing", icon: <Briefcase size={28} />, color: "from-paint-blue to-paint-mint", hint: "10–50 people" },
+  { id: "family", label: "Family Day", icon: <Users size={28} />, color: "from-primary to-paint-yellow", hint: "3–20 people" },
+  { id: "kids", label: "Kids' Party", icon: <Baby size={28} />, color: "from-paint-mint to-paint-blue", hint: "Ages 5–12" },
+  { id: "custom", label: "Custom Event", icon: <Sparkles size={28} />, color: "from-paint-purple to-paint-pink", hint: "You tell us!" },
 ];
 
 const activities = [

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { StudioAmbience } from "@/components/decor/StudioAmbience";
+import { BrushStrokeTitle } from "@/components/decor/BrushStrokeTitle";
 
 interface Review {
   name: string;
@@ -19,7 +21,7 @@ const reviews: Review[] = [
     text: "Came here for a date night and ended up booking again for my birthday! The pottery wheel session was incredible — our instructor was so patient and funny. The food was genuinely good too, not just a side thought. The mug I made sits on my desk at work and I get asked about it every week.",
     experience: "Pottery Wheel",
     initials: "AK",
-    color: "bg-amber-100 text-amber-800",
+    color: "bg-tint-yellow text-paint-orange",
   },
   {
     name: "Rohan Mehta",
@@ -28,7 +30,7 @@ const reviews: Review[] = [
     text: "Took my team here for an offsite and honestly it was the best team-building activity we've ever done. No awkward trust falls — just clay, coffee, and a lot of laughter. Everyone left with something they made themselves. Already planning the next one.",
     experience: "Corporate Team Building",
     initials: "RM",
-    color: "bg-blue-100 text-blue-800",
+    color: "bg-tint-blue text-paint-blue",
   },
   {
     name: "Priya & Arjun S.",
@@ -37,7 +39,7 @@ const reviews: Review[] = [
     text: "Best date spot in Bangalore — period. We painted pottery for 2 hours, had the most delicious waffles, and completely forgot about our phones. Picking up our pieces 3 weeks later felt like Christmas morning. We're already planning a monthly tradition.",
     experience: "Café & Clay Date",
     initials: "PA",
-    color: "bg-rose-100 text-rose-800",
+    color: "bg-tint-pink text-paint-pink",
   },
   {
     name: "Sunita Rao",
@@ -46,7 +48,7 @@ const reviews: Review[] = [
     text: "Brought my 7-year-old daughter here and she hasn't stopped talking about it. The staff were so wonderful with kids — patient, encouraging, and fun. She painted a bowl for her grandma and was so proud of it. The café menu had great options for kids too.",
     experience: "Family Workshop",
     initials: "SR",
-    color: "bg-green-100 text-green-800",
+    color: "bg-tint-mint text-paint-mint",
   },
   {
     name: "Vikram Nair",
@@ -55,7 +57,7 @@ const reviews: Review[] = [
     text: "Came in completely sceptical — I'm not an 'artsy' person at all. Left with a hand-thrown bowl I'm genuinely proud of and a plan to come back every month. The knitting studio is a hidden gem too — tried it on a whim and it was strangely meditative.",
     experience: "Pottery Wheel + Knitting",
     initials: "VN",
-    color: "bg-purple-100 text-purple-800",
+    color: "bg-tint-purple text-paint-purple",
   },
   {
     name: "Meera Iyer",
@@ -64,7 +66,7 @@ const reviews: Review[] = [
     text: "Organised my sister's birthday here and they were absolutely amazing to work with. The team helped customise the package, the food was excellent, and every single guest walked away having painted their own pottery. My sister said it was her favourite birthday ever.",
     experience: "Birthday Celebration",
     initials: "MI",
-    color: "bg-amber-100 text-amber-800",
+    color: "bg-tint-yellow text-paint-orange",
   },
 ];
 
@@ -75,7 +77,7 @@ function StarRating({ rating }: { rating: number }) {
         <Star
           key={i}
           size={14}
-          className={i < rating ? "fill-amber-400 text-amber-400" : "text-muted-foreground/30"}
+          className={i < rating ? "fill-primary text-primary" : "text-muted-foreground/30"}
         />
       ))}
     </div>
@@ -86,28 +88,17 @@ export function Reviews() {
   return (
     <section
       id="reviews"
-      className="py-20 md:py-28 bg-card overflow-hidden"
+      className="py-20 md:py-28 bg-background overflow-hidden relative"
       aria-label="Guest reviews"
     >
-      <div className="container mx-auto px-4 md:px-6">
-        {/* Header */}
-        <motion.div
-          className="text-center max-w-2xl mx-auto mb-14"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-3">
-            Guest Stories
-          </p>
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-5">
-            What Our Guests Say
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Over a thousand handmade memories created. Here are a few of our favourites.
-          </p>
-        </motion.div>
+      <StudioAmbience tone="light" />
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <BrushStrokeTitle
+          eyebrow="Guest Stories"
+          title="What Our Guests Say"
+          description="Over a thousand handmade memories created. Here are a few of our favourites."
+          accent="yellow"
+        />
 
         {/* Review grid */}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
@@ -119,7 +110,7 @@ export function Reviews() {
               transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
               viewport={{ once: true, margin: "-50px" }}
               data-testid={`card-review-${i}`}
-              className="break-inside-avoid bg-background rounded-2xl border border-border/60 p-7 hover:shadow-md transition-shadow duration-300"
+              className="break-inside-avoid bg-white rounded-2xl border border-border/60 p-7 card-art shadow-sm"
             >
               {/* Quote icon */}
               <Quote className="w-8 h-8 text-primary/20 mb-4" aria-hidden="true" />
@@ -166,7 +157,7 @@ export function Reviews() {
             <p className="text-5xl font-serif font-bold text-primary">4.9</p>
             <div className="flex justify-center sm:justify-start gap-1 my-1.5">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={16} className="fill-amber-400 text-amber-400" />
+                <Star key={i} size={16} className="fill-primary text-primary" />
               ))}
             </div>
             <p className="text-sm text-muted-foreground">Average guest rating</p>

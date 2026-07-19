@@ -1,4 +1,7 @@
-import { Instagram, Facebook, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Instagram, Facebook, Linkedin, Youtube, MapPin, Phone, Mail, Clock } from "lucide-react";
+import { BrandMark } from "@/components/BrandMark";
+import footerStudioArt from "../../../../attached_assets/brushes-footer-art.svg?url";
 
 function scrollTo(href: string) {
   const id = href.replace("#", "");
@@ -19,17 +22,60 @@ const quickLinks = [
   { label: "Book a Table", href: "#book" },
 ];
 
+function FooterStudioArt() {
+  const reduced = useReducedMotion();
+
+  return (
+    <>
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-12 -right-8 z-0 hidden lg:block"
+        initial={{ opacity: 0, x: 24, y: 22, scale: 0.96 }}
+        whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 1.35, ease: [0.22, 1, 0.36, 1] }}
+        animate={reduced ? undefined : { y: [0, -4, 0] }}
+        style={{ willChange: "transform" }}
+      >
+        <motion.img
+          src={footerStudioArt}
+          alt=""
+          className="h-auto w-[min(50vw,540px)] xl:w-[610px] object-contain opacity-30"
+          animate={reduced ? undefined : { opacity: [0.24, 0.36, 0.24] }}
+          transition={reduced ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none mx-auto mt-6 block w-full max-w-[360px] lg:hidden"
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.img
+          src={footerStudioArt}
+          alt=""
+          className="h-auto w-full object-contain opacity-22"
+          animate={reduced ? undefined : { opacity: [0.18, 0.28, 0.18] }}
+          transition={reduced ? undefined : { duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
+    </>
+  );
+}
+
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background" aria-label="Site footer">
-      <div className="container mx-auto px-4 md:px-6 py-16">
+    <footer className="relative overflow-hidden bg-foreground text-background" aria-label="Site footer">
+      <div className="container relative z-10 mx-auto px-4 md:px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
 
           {/* Brand */}
           <div className="space-y-4 sm:col-span-2 lg:col-span-1">
             <div className="mb-6">
-              <h2 className="font-serif text-3xl font-bold text-primary">Bistro</h2>
-              <h2 className="font-serif text-3xl font-bold text-white -mt-1">Claytopia</h2>
+              <BrandMark variant="footer" size="footer" />
             </div>
             <p className="text-background/75 leading-relaxed text-sm">
               Bangalore's premier paint-your-own pottery café. A space where food
@@ -37,7 +83,7 @@ export function Footer() {
             </p>
             <div className="flex gap-3 pt-2">
               <a
-                href="https://www.instagram.com/bistroclaytopia"
+                href="https://www.instagram.com/bistroclaytopiakoramangala"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Bistro Claytopia on Instagram"
@@ -47,7 +93,7 @@ export function Footer() {
                 <Instagram size={18} aria-hidden="true" />
               </a>
               <a
-                href="https://www.facebook.com/bistroclaytopia"
+                href="https://www.facebook.com/share/1E34vWWpjF/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Bistro Claytopia on Facebook"
@@ -55,6 +101,26 @@ export function Footer() {
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-all hover:scale-110"
               >
                 <Facebook size={18} aria-hidden="true" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/bistro-claytopia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Bistro Claytopia on LinkedIn"
+                data-testid="link-linkedin"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-all hover:scale-110"
+              >
+                <Linkedin size={18} aria-hidden="true" />
+              </a>
+              <a
+                href="https://youtube.com/@bistroclaytopia"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Bistro Claytopia on YouTube"
+                data-testid="link-youtube"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-all hover:scale-110"
+              >
+                <Youtube size={18} aria-hidden="true" />
               </a>
             </div>
           </div>
@@ -144,6 +210,8 @@ export function Footer() {
           </div>
 
         </div>
+
+        <FooterStudioArt />
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-background/50 text-xs">
           <p>© {new Date().getFullYear()} Bistro Claytopia. All rights reserved.</p>

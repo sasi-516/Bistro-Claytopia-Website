@@ -12,6 +12,7 @@ import { Reviews } from "@/components/Reviews";
 import { Book } from "@/components/Book";
 import { FAQ } from "@/components/FAQ";
 import { Footer } from "@/components/Footer";
+import { PotteryDivider } from "@/components/decor/PotteryDivider";
 import { useSEO } from "@/hooks/useSEO";
 
 export default function Home() {
@@ -60,12 +61,17 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <PotteryDivider />
         <Experiences onBookExperience={handleBookExperience} />
+        <PotteryDivider flip />
         <Menu />
+        <PotteryDivider />
         <Events />
+        <PotteryDivider flip />
         <WhatsOn />
         <Gallery />
         <Reviews />
+        <PotteryDivider />
         <Book
           preselectedExperience={bookingExperience}
           onExperienceConsumed={() => setBookingExperience("")}
